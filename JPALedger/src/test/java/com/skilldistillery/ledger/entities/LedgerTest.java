@@ -18,6 +18,7 @@ class LedgerTest {
 	private EntityManager em;
 	private Ledger ledger;
 
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("Ledger");
@@ -41,10 +42,13 @@ class LedgerTest {
 	}
 
 	@Test
-	@DisplayName("Testing entity name")
+	@DisplayName("Testing entity getId")
 	void test1() {
 		assertNotNull(ledger);
-		assertEquals("change", ledger.getName());
+		assertEquals(1, ledger.getId());
+		
 	}
+	
+	
 
 }

@@ -22,7 +22,20 @@ DROP TABLE IF EXISTS `ledger` ;
 
 CREATE TABLE IF NOT EXISTS `ledger` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `beginning_balance` DOUBLE NULL,
+  `deposits` DOUBLE NULL DEFAULT 0.00,
+  `atm_withdrawals` DOUBLE NULL DEFAULT 0.00,
+  `electronic_withdrawals` DOUBLE NULL DEFAULT 0.00,
+  `ending_balance` DOUBLE NULL,
+  `statement_period` VARCHAR(200) NULL,
+  `account_number` INT NULL,
+  `date` DATE NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `amount` DOUBLE NOT NULL,
+  `balance` DOUBLE NOT NULL,
+  `username` VARCHAR(45) NULL,
+  `first_name` VARCHAR(100) NULL,
+  `last_name` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -42,7 +55,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ledgerdb`;
-INSERT INTO `ledger` (`id`, `name`) VALUES (1, 'change');
+INSERT INTO `ledger` (`id`, `beginning_balance`, `deposits`, `atm_withdrawals`, `electronic_withdrawals`, `ending_balance`, `statement_period`, `account_number`, `date`, `description`, `amount`, `balance`, `username`, `first_name`, `last_name`) VALUES (1, 46.34, 4150.21, -1802.83, 2375.00, 18.72, '2019-09-24 to 2019-10-22', 000123456789, '2019-09-24', 'Card purchase 09/23 7-Eleven 39211 Castle Rock CO Card 1234', 46.58, -0.24, 'Rick', 'Richard', 'Newman');
 
 COMMIT;
 
