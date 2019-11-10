@@ -14,37 +14,39 @@ public class Ledger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
 	@Column(name = "beginning_balance")
 	private double beginningBalance;
-
+	
 	private double deposits;
-
+	
 	@Column(name = "atm_withdrawals")
 	private double atmWithdrawals;
-
+	
 	@Column(name = "electronic_withdrawals")
 	private double electronicWithdrawals;
-
+	
 	@Column(name = "ending_balance")
 	private double endingBalance;
-
+	
 	@Column(name = "statement_period")
 	private String statementPeriod;
-
+	
 	@Column(name = "account_number")
-	private int accountNumber;
-
-	private Date date;
+	private String accountNumber;
+	
+	@Column(name = "tx_date")
+	private Date txDate;
+	
 	private String description;
 	private double amount;
 	private double balance;
 	private String username;
 	
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
 	
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
 
 	public int getId() {
@@ -103,20 +105,20 @@ public class Ledger {
 		this.statementPeriod = statementPeriod;
 	}
 
-	public int getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getTxDate() {
+		return txDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setTxDate(Date txDate) {
+		this.txDate = txDate;
 	}
 
 	public String getDescription() {
@@ -142,7 +144,6 @@ public class Ledger {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	
 
 	public String getUsername() {
 		return username;
@@ -171,6 +172,23 @@ public class Ledger {
 	public Ledger() {
 		super();
 	}
+	
+	
+
+	public Ledger(Date txDate, String description, double amount) {
+		super();
+		this.txDate = txDate;
+		this.description = description;
+		this.amount = amount;
+	}
+
+	public Ledger(Date txDate, String description, double amount, double balance) {
+		super();
+		this.txDate = txDate;
+		this.description = description;
+		this.amount = amount;
+		this.balance = balance;
+	}
 
 	@Override
 	public String toString() {
@@ -191,8 +209,8 @@ public class Ledger {
 		builder.append(statementPeriod);
 		builder.append(", accountNumber=");
 		builder.append(accountNumber);
-		builder.append(", date=");
-		builder.append(date);
+		builder.append(", txDate=");
+		builder.append(txDate);
 		builder.append(", description=");
 		builder.append(description);
 		builder.append(", amount=");
@@ -213,7 +231,7 @@ public class Ledger {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + accountNumber;
+		result = prime * result + ((accountNumber == null) ? 0 : accountNumber.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -223,7 +241,6 @@ public class Ledger {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(beginningBalance);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		temp = Double.doubleToLongBits(deposits);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
@@ -235,6 +252,7 @@ public class Ledger {
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((statementPeriod == null) ? 0 : statementPeriod.hashCode());
+		result = prime * result + ((txDate == null) ? 0 : txDate.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -248,7 +266,10 @@ public class Ledger {
 		if (getClass() != obj.getClass())
 			return false;
 		Ledger other = (Ledger) obj;
-		if (accountNumber != other.accountNumber)
+		if (accountNumber == null) {
+			if (other.accountNumber != null)
+				return false;
+		} else if (!accountNumber.equals(other.accountNumber))
 			return false;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
@@ -257,11 +278,6 @@ public class Ledger {
 		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
 			return false;
 		if (Double.doubleToLongBits(beginningBalance) != Double.doubleToLongBits(other.beginningBalance))
-			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
 			return false;
 		if (Double.doubleToLongBits(deposits) != Double.doubleToLongBits(other.deposits))
 			return false;
@@ -291,6 +307,11 @@ public class Ledger {
 				return false;
 		} else if (!statementPeriod.equals(other.statementPeriod))
 			return false;
+		if (txDate == null) {
+			if (other.txDate != null)
+				return false;
+		} else if (!txDate.equals(other.txDate))
+			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -299,11 +320,6 @@ public class Ledger {
 		return true;
 	}
 	
-	
-	
-	
-	
-	
-	
 
+	
 }

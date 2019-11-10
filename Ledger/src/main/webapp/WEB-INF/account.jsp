@@ -8,16 +8,25 @@
 <title>Account</title>
 </head>
 <body>
-<c:forEach items="${ledger}" var="element">
-${element.firstName} ${element.lastName}
+${ledger.firstName} ${ledger.lastName}
 
-<h2>Hello, ${element.username}! Here is your account snapshot.</h2>
-
+<h2>Hello, ${ledger.username}! Here is your account snapshot.</h2>
 
 
+<form action="getNewTxForm.do" method="GET">
+  <input type="submit" value="Add Transaction" />
+</form>
+
+<form action="updateTxForm.do" method="GET" >
+Enter Transaction ID Number to Edit:<br>
+<input class="input" type="number"  min="0" required="required" name="id" placeholder="Enter ID"/> 
+  <input type="submit" value="Edit Transaction" />
+</form>
+
+<form action="displayAll.do" method="GET">
+  <input type="submit" value="Display All Transactions" />
+</form>
 
 
-
-</c:forEach>
 </body>
 </html>
