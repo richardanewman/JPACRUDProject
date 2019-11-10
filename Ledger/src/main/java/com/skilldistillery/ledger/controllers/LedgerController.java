@@ -89,8 +89,8 @@ public class LedgerController {
 	
 	@RequestMapping(path="displayAll.do", method = RequestMethod.GET)
 	public String diplayAllTx(Model model) {
-		ledgerDAO.calculateBalances();
-		model.addAttribute("displayAll", ledgerDAO.getAll());
+		List<Ledger> ledgerList = ledgerDAO.calculateBalances();
+		model.addAttribute("displayAll", ledgerList);
 		
 		return "displayAll";
 		

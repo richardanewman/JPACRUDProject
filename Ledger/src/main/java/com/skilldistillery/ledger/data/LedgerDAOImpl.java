@@ -19,7 +19,9 @@ public class LedgerDAOImpl implements LedgerDAO {
 
 	@Override
 	public List<Ledger> getAll() {
-		return em.createQuery("select l from Ledger l", Ledger.class).getResultList();
+		List<Ledger> ledgerList = em.createQuery("select l from Ledger l", Ledger.class).getResultList();
+		em.flush();
+		return ledgerList;
 	}
 
 	@Override
@@ -29,15 +31,16 @@ public class LedgerDAOImpl implements LedgerDAO {
 
 	@Override
 	public Ledger addNewTransaction(Ledger ledger) {
-		double balance = setBalance(ledger.getAmount());
+		double balance = setNewEntryBalance(ledger.getAmount());
 		Ledger newTx = new Ledger(ledger.getTxDate(), ledger.getDescription(), ledger.getAmount(), balance);
 		em.persist(newTx);
+		em.flush();
 		return newTx;
 
 	}
 
 	@Override
-	public double setBalance(double inputAmount) {
+	public double setNewEntryBalance(double inputAmount) {
 		List<Ledger> ledgerList = getAll();
 		double lastBalance = (ledgerList.get(ledgerList.size() - 1).getBalance());
 		double balance = lastBalance - inputAmount;
@@ -58,26 +61,17 @@ public class LedgerDAOImpl implements LedgerDAO {
 	}
 
 	@Override
-	public void calculateBalances() {
+	public List<Ledger> calculateBalances(){
 		List<Ledger> ledgerList = getAll();
-		for (int i = 0; i <= ledgerList.size() - 1; i++) {
-			if (i == 0) {
-				Ledger ledgerTx = em.find(Ledger.class, i + 1);
-				double balance = ledgerList.get(0).getBeginningBalance() - ledgerList.get(0).getAmount();
-				ledgerTx.setBalance(balance);
-			}
-			if (i >= 1) {
-				Ledger ledgerTx = em.find(Ledger.class, i + 1);
-				double balance = ledgerList.get(i - 1).getBalance() - ledgerList.get(i).getAmount();
-				ledgerTx.setBalance(balance);
-			}
-			if (i == ledgerList.size() - 1) {
-				Ledger ledgerTx = em.find(Ledger.class, i + 1);
-				double endingBalance = ledgerList.get(i).getBalance();
-				ledgerTx.setEndingBalance(endingBalance);
-			}
+		double balance = ledgerList.get(0).getBeginningBalance();
+		for (Ledger ledgerTx : ledgerList) {
+			ledgerTx.setBalance(balance -= ledgerTx.getAmount());
+			
 		}
-
+		
+		
+		return ledgerList;
+		
 	}
 
 	@Override
