@@ -89,9 +89,54 @@ public class LedgerController {
 	
 	@RequestMapping(path="displayAll.do", method = RequestMethod.GET)
 	public String diplayAllTx(Model model) {
+		ledgerDAO.calculateBalances();
 		model.addAttribute("displayAll", ledgerDAO.getAll());
 		
 		return "displayAll";
+		
+	}
+	
+//////////////////////////////////////////////////////////////////////
+	
+//	Find transactions by ID  /////////////////////////////////////////
+	
+	@RequestMapping(path="findById.do", method = RequestMethod.GET)
+	public String diplayAllTx(int id, Model model) {
+		if (ledgerDAO.findById(id) == null) {
+			model.addAttribute("oops", "Oops! Looks like something went wrong. Please check your ID number and try again.");
+			return "fail";
+		}else {
+			
+		model.addAttribute("displayTx", ledgerDAO.findById(id));
+		
+		return "success";
+		}
+	}
+	
+//////////////////////////////////////////////////////////////////////
+
+//	Keyword search ///////////////////////////////////////////////////
+		
+	@RequestMapping(path="searchKeyword.do")
+	public String searchKeyword(@Valid String keyword, Model model) {
+		model.addAttribute("searchResults", ledgerDAO.searchByKeyword(keyword));
+		return "displayAll";
+	}
+	
+//////////////////////////////////////////////////////////////////////
+	
+//	Delete Transaction ///////////////////////////////////////////////
+	
+	@RequestMapping(path="deleteTx.do", method = RequestMethod.POST)
+	public String deleteTx(@Valid int id, Model model) {
+		if (ledgerDAO.deleteTransaction(id)) {
+			model.addAttribute("successfulDelete", "Looks like we successfully deleted that transaction!");
+			return "success";
+		}else {
+			model.addAttribute("oops", "Oops! Looks like something went wrong. Please check your ID number and try again.");
+			return "fail";
+			
+		}
 		
 	}
 

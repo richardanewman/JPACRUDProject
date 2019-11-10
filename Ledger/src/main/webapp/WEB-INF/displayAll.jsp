@@ -8,9 +8,18 @@
 <title>All Transactions</title>
 </head>
 <body>
+<c:if test="${! empty displayAll}">
 <c:forEach items="${displayAll}" var="ledgerTx">
 ${ledgerTx}<br><br>
 
 </c:forEach>
+</c:if>
+
+<c:if test="${! empty searchResults}">
+<c:forEach items="${searchResults}" var="ledgerTx">
+${ledgerTx}<br><br>
+
+</c:forEach>
+</c:if>
 </body>
 </html>

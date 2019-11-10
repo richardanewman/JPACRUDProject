@@ -26,7 +26,7 @@ public class LedgerDAOImpl implements LedgerDAO {
 	public Ledger findById(int id) {
 		return em.find(Ledger.class, id);
 	}
-	
+
 	@Override
 	public Ledger addNewTransaction(Ledger ledger) {
 		double balance = setBalance(ledger.getAmount());
@@ -52,16 +52,15 @@ public class LedgerDAOImpl implements LedgerDAO {
 		ledgerTx.setDescription(txData.getDescription());
 		ledgerTx.setAmount(txData.getAmount());
 		calculateBalances();
-		
+
 		return ledgerTx;
 
-		}
-	
+	}
 
 	@Override
 	public void calculateBalances() {
 		List<Ledger> ledgerList = getAll();
-		for (int i = 0; i <= ledgerList.size()-1; i++) {
+		for (int i = 0; i <= ledgerList.size() - 1; i++) {
 			if (i == 0) {
 				Ledger ledgerTx = em.find(Ledger.class, i + 1);
 				double balance = ledgerList.get(0).getBeginningBalance() - ledgerList.get(0).getAmount();
@@ -70,15 +69,37 @@ public class LedgerDAOImpl implements LedgerDAO {
 			if (i >= 1) {
 				Ledger ledgerTx = em.find(Ledger.class, i + 1);
 				double balance = ledgerList.get(i - 1).getBalance() - ledgerList.get(i).getAmount();
-				ledgerTx.setBalance(balance);		
+				ledgerTx.setBalance(balance);
 			}
-			if (i == ledgerList.size()-1) {
+			if (i == ledgerList.size() - 1) {
 				Ledger ledgerTx = em.find(Ledger.class, i + 1);
 				double endingBalance = ledgerList.get(i).getBalance();
 				ledgerTx.setEndingBalance(endingBalance);
 			}
 		}
-		
+
+	}
+
+	@Override
+	public List<Ledger> searchByKeyword(String keyword) {
+		String sql = "select l from Ledger l where l.description like :keyword";
+		List<Ledger> ledgerList = em.createQuery(sql, Ledger.class).setParameter("keyword", "%" + keyword + "%")
+				.getResultList();
+
+		return ledgerList;
+	}
+
+	@Override
+	public boolean deleteTransaction(int id) {
+		if (em.find(Ledger.class, id) != null) {
+			Ledger ledgerTx = em.find(Ledger.class, id);
+			em.remove(ledgerTx);
+			em.flush();
+
+			return true;
+		} else
+
+			return false;
 	}
 
 }

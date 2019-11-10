@@ -23,10 +23,27 @@ Enter Transaction ID Number to Edit:<br>
   <input type="submit" value="Edit Transaction" />
 </form>
 
+<form action="findById.do" method="GET" >
+Find Transaction ID Number:<br>
+<input class="input" type="number"  min="0" required="required" name="id" placeholder="Enter ID"/> 
+  <input type="submit" value="Find By ID" />
+</form>
+
+<form action="searchKeyword.do" method="GET" >
+Search Transaction Descriptions By Keyword:<br>
+<input class="input" type="text" required="required" name="keyword" placeholder="Enter Keyword"/> 
+  <input type="submit" value="Search Keyword" />
+</form>
+
 <form action="displayAll.do" method="GET">
   <input type="submit" value="Display All Transactions" />
 </form>
 
+<form action="deleteTx.do" method="POST" >
+Delete Transaction By ID Number:<br>
+<input class="input" type="number"  min="1" required="required" name="id" placeholder="Enter ID"/> 
+  <input type="submit" value="Delete Transaction" />
+</form>
 
 </body>
 </html>

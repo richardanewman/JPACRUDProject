@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hooray!</title>
+<title>Oops!</title>
 </head>
 <body>
-<h1>Success!</h1>
-<p>${newTx}
-${successfulUpdate}
-${successfulDelete}
-${displayTx}
-</p>
+${oops}
 </body>
 </html>
