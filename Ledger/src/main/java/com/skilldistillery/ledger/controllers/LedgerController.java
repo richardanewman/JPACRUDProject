@@ -69,12 +69,16 @@ public class LedgerController {
 	
 	@RequestMapping(path="updateTxForm.do", method = RequestMethod.GET)
 	public String updateTxForm(@Valid int id, Model model) {
-		List<Ledger> ledgerList = ledgerDAO.getAll();
-		ledgerId = id;
-		Ledger txData = ledgerList.get(id - 1);
+		if (ledgerDAO.findById(id) == null) {
+		model.addAttribute("oops", "Looks like something went wrong. Please check your ID number and try again.");
+		return "fail";
+		}else {
+		Ledger txData = ledgerDAO.findById(id);
 		model.addAttribute("txData", txData);
+		ledgerId = id;
 		
 		return "updateTxForm";
+		}
 		
 	}
 	
