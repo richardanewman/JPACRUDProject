@@ -6,6 +6,8 @@
 
 This application performs simple CRUD on a single table database of my choosing.
 
+![EER Diagram](https://github.com/richardanewman/richardanewman.github.io/blob/master/images/boot-jpa.png)
+
 ### Technologies
 
 Java Version 1.8, SQL, MySQL, MySQL Workbench, Spring Boot, JPA, Hibernate, Gradle, JSP, JEL, AWS EC2, HTML, CSS, Bootstrap, Git, Github, Eclipse IDE, Atom
@@ -18,7 +20,13 @@ The primary topics applied from Week 9 at Skill Distillery were on SQL, JPA, JUn
 
 ### Lessons Learned
 
-TODO
+Became much more comfortable with request mappings in the controller during this project. I switch to completely using the String return method instead of returning a ModelAndView. I found it much easier to inject the Model and call model.addAttribute instead of using the mv.addObject and mv.setViewName to pass objects. I did have a couple binding issues and null pointer exceptions but quickly found out that MySQL Workbench was un-checking the auto-increment box if you modified any of the primary keys within the insert tab in the latter instance. The binding issue was simply from passing a List<> when I should have been passing an object. Easy fixes but had to follow the console log trail to get to the root of the problem.
+
+CRUD operations ran smoothly for the most part, but there was some initial confusion on which methods should be used to speak to the database since we have recently performed JDBC, JPQL, and JPA all within a short window of time. But a short review of class resources and previous lab assignments cleared things up.
+
+JUnit testing is growing on me. I find it much easier now that we are using JPA and Spring Boot.
+
+Frontend work went smoothly thanks to Bootstrap boilerplate. I especially enjoying merging the backend logic with the frontend through the Java tags. Being able to dynamically call data on the front end is very new and opens up a new world of possibilities when designing applications. 
 
 
 
