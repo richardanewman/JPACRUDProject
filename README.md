@@ -18,6 +18,17 @@ The primary topics applied from Week 9 at Skill Distillery were on SQL, JPA, JUn
 
 ### Lessons Learned
 
+TODO
+
+
+
+
+
+
+
+
+
+
 
 
 ### How to Run
