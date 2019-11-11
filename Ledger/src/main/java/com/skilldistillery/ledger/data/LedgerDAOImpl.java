@@ -95,5 +95,42 @@ public class LedgerDAOImpl implements LedgerDAO {
 
 			return false;
 	}
+	@Override
+	public Ledger getLastTx() {
+		List<Ledger> ledgerList = getAll();
+		Ledger lastTx = ledgerList.get(ledgerList.size() -1);
+		
+		return lastTx;
+	}
+	@Override
+	public Ledger[] getRecentActivity(){
+		List<Ledger> ledgerList = getAll();
+		Ledger[] lastSeven = new Ledger[10];
+		lastSeven[0] = ledgerList.get(ledgerList.size()-1);
+		lastSeven[1] = ledgerList.get(ledgerList.size()-2);
+		lastSeven[2] = ledgerList.get(ledgerList.size()-3);
+		lastSeven[3] = ledgerList.get(ledgerList.size()-4);
+		lastSeven[4] = ledgerList.get(ledgerList.size()-5);
+		lastSeven[5] = ledgerList.get(ledgerList.size()-6);
+		lastSeven[6] = ledgerList.get(ledgerList.size()-7);
+		lastSeven[7] = ledgerList.get(ledgerList.size()-8);
+		lastSeven[8] = ledgerList.get(ledgerList.size()-9);
+		lastSeven[9] = ledgerList.get(ledgerList.size()-10);
+		return lastSeven;
+	}
+	
+	@Override
+	public double getAverage() {
+		String sql = "select avg(l.amount) from Ledger l";
+		double averagePurchase = em.createQuery(sql, Double.class).getSingleResult();
+		return averagePurchase;
+	}
+	
+	@Override
+	public double getMax() {
+		String sql = "select max(l.amount) from Ledger l";
+		double maxPurchase = em.createQuery(sql, Double.class).getSingleResult();
+		return maxPurchase;
+	}
 
 }

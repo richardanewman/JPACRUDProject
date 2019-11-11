@@ -14,6 +14,10 @@ public interface LedgerDAO {
 	public List<Ledger> calculateBalances();
 	public List<Ledger> searchByKeyword(String keyword);
 	public boolean deleteTransaction(int id);
+	public Ledger getLastTx();
+	public Ledger[] getRecentActivity();
+	public double getAverage();
+	public double getMax();
 
 
 }

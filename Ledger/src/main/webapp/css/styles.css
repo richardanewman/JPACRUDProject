@@ -1,4 +1,51 @@
-body {
+@charset "UTF-8";
 
+.displayResults {
+	margin: 10px auto;
+	padding: 5% 15%;
+	font-size: 30px;
+}
+
+.newTxForm {
+	margin: 10px auto;
+	padding: 5% 15%;
+	font-size: 30px;
+}
+.addForm {
+	margin: 10px auto;
+	padding: 5% 15%;
+	font-size: 30px;
+}
+
+.input,
+.submit {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+.input {
+    border: 1px solid lightgray;
+}
+
+.submit {
+    background-color: black;
+    border: 1px solid transparent;
+    color: white;
+}
+.submit:hover {
+  background-color: gray;
+}
+
+.welcome {
+	color: black;
+	margin-top: 200px;
+	text-align: center;
+	font-size: 50px;
+	font-family: impact;
 	
 }
+
+

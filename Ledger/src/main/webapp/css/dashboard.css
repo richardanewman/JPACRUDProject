@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
 	font-size: .875rem;
 }
@@ -14,6 +18,37 @@ body {
 	height: 25px;
 	align-self: center;
 }
+
+.current {
+	font-size: 50px !important;
+	color: #48A236;
+}
+
+.current-2 {
+	font-size: 50px !important;
+	color: #367EA2;
+}
+
+.current-3 {
+	font-size: 50px !important;
+	color: #8F36A2;
+}
+
+.current-sub {
+	font-size: 20px !important;
+	color: #969594;
+}
+
+.current-chart {
+	text-align: center;
+	font-size: 20px !important;
+	color: #969594;
+	padding-top: 25px;
+
+}
+
+
+
 
 /*
  * Sidebar

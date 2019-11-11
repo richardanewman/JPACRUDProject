@@ -35,6 +35,10 @@ public class LedgerController {
 	@RequestMapping(path="getAccount.do", method = RequestMethod.GET)
 	public String getAccount(Model model){
 		model.addAttribute("ledger", ledgerDAO.findById(1));
+		model.addAttribute("current", ledgerDAO.getLastTx());
+		model.addAttribute("recent", ledgerDAO.getRecentActivity());
+		model.addAttribute("average", ledgerDAO.getAverage());
+		model.addAttribute("max", ledgerDAO.getMax());
 		return "account";
 		
 	}
@@ -103,7 +107,7 @@ public class LedgerController {
 	@RequestMapping(path="findById.do", method = RequestMethod.GET)
 	public String diplayAllTx(int id, Model model) {
 		if (ledgerDAO.findById(id) == null) {
-			model.addAttribute("oops", "Oops! Looks like something went wrong. Please check your ID number and try again.");
+			model.addAttribute("oops", "Looks like something went wrong. Please check your ID number and try again.");
 			return "fail";
 		}else {
 			
@@ -133,7 +137,7 @@ public class LedgerController {
 			model.addAttribute("successfulDelete", "Looks like we successfully deleted that transaction!");
 			return "success";
 		}else {
-			model.addAttribute("oops", "Oops! Looks like something went wrong. Please check your ID number and try again.");
+			model.addAttribute("oops", "Looks like something went wrong. Please check your ID number and try again.");
 			return "fail";
 			
 		}

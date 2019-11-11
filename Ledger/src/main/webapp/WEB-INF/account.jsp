@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Ledger Dashboard</title>
 
     
 
@@ -23,7 +24,6 @@
    <form action="searchKeyword.do" method="GET">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">${ledger.firstName} ${ledger.lastName}</a>
-     
       <input  class="form-control form-control-dark w-100" type="text" name="keyword" placeholder="Search Transactions By Keyword" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
@@ -32,6 +32,8 @@
         </li>
       </ul>
     </nav>
+    
+    
 
     <div class="container-fluid">
       <div class="row">
@@ -57,21 +59,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Customers
+                <a class="nav-link" href="#modify">
+                  <span data-feather="edit-2"></span>
+                  Modify Transaction
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#recent-activity">
+                  <span data-feather="database"></span>
+                  Recent Activity
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="bar-chart-2"></span>
                   Reports
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="layers"></span>
-                  Integrations
                 </a>
               </li>
             </ul>
@@ -95,58 +97,13 @@
                   Last quarter
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Social engagement
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Year-end sale
-                </a>
-              </li>
             </ul>
           </div>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
-            <h2>Hello, ${ledger.username}! Here is your account snapshot.</h2>
-            
-            <form action="getNewTxForm.do" method="GET">
-  <input type="submit" value="Add Transaction" />
-</form>
-
-<form action="updateTxForm.do" method="GET" >
-Enter Transaction ID Number to Edit:<br>
-<input class="input" type="number"  min="0" required="required" name="id" placeholder="Enter ID"/> 
-  <input type="submit" value="Edit Transaction" />
-</form>
-
-<form action="findById.do" method="GET" >
-Find Transaction ID Number:<br>
-<input class="input" type="number"  min="0" required="required" name="id" placeholder="Enter ID"/> 
-  <input type="submit" value="Find By ID" />
-</form>
-
-<form action="searchKeyword.do" method="GET" >
-Search Transaction Descriptions By Keyword:<br>
-<input class="input" type="text" required="required" name="keyword" placeholder="Enter Keyword"/> 
-  <input type="submit" value="Search Keyword" />
-</form>
-
-<form action="displayAll.do" method="GET">
-  <input type="submit" value="Display All Transactions" />
-</form>
-
-<form action="deleteTx.do" method="POST" >
-Delete Transaction By ID Number:<br>
-<input class="input" type="number"  min="1" required="required" name="id" placeholder="Enter ID"/> 
-  <input type="submit" value="Delete Transaction" />
-</form>
+            <h4 class="h2">Ledger Dashboard</h4>    
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
                 <button class="btn btn-sm btn-outline-secondary">Share</button>
@@ -158,9 +115,30 @@ Delete Transaction By ID Number:<br>
               </button>
             </div>
           </div>
-
-          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
-          <div class="card-deck">
+<div class="card-deck">
+  <div class="card" style="height: 5%;">
+    <div class="card-body">
+    <p class="current" ><strong><fmt:formatNumber type="currency" value="${current.balance}"/></strong></p>
+      <h5 class="card-title current-sub">Current Balance</h5>
+    </div>
+  </div>
+  <div class="card" style="height: 5%;">
+    <div class="card-body">
+    <p class="current-2" ><strong><fmt:formatNumber type="currency" value="${average}"/></strong></p>
+      <h5 class="card-title current-sub">Average Purchase</h5>
+    </div>
+  </div>
+  <div class="card" style="height: 5%;">
+    <div class="card-body">
+    <p class="current-3" ><strong><fmt:formatNumber type="currency" value="${max}"/></strong></p>
+      <h5 class="card-title current-sub">Most Expensive Purchase</h5>
+    </div>
+  </div>
+</div>
+<div class="current-chart">Most Recent Transactions</div>
+<canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+<a id="modify"></a>
+<div class="card-deck">
   <div class="card">
     <span class="feather-card" data-feather="edit"></span>
     <div class="card-body">
@@ -207,130 +185,88 @@ Delete Transaction By ID Number:<br>
   </div>
 </div>
 
-          <h2>Section title</h2>
+          <h2>Recent Activity</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>ID#</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Balance</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="recent-activity">
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  <td>${recent[0].id}</td>
+                  <td>${recent[0].txDate}</td>
+                  <td>${recent[0].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[0].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[0].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
+                  <td>${recent[1].id}</td>
+                  <td>${recent[1].txDate}</td>
+                  <td>${recent[1].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[1].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[1].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
+                  <td>${recent[2].id}</td>
+                  <td>${recent[2].txDate}</td>
+                  <td>${recent[2].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[2].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[2].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
+                  <td>${recent[3].id}</td>
+                  <td>${recent[3].txDate}</td>
+                  <td>${recent[3].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[3].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[3].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
+                  <td>${recent[4].id}</td>
+                  <td>${recent[4].txDate}</td>
+                  <td>${recent[4].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[4].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[4].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
+                  <td>${recent[5].id}</td>
+                  <td>${recent[5].txDate}</td>
+                  <td>${recent[5].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[5].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[5].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
+                  <td>${recent[6].id}</td>
+                  <td>${recent[6].txDate}</td>
+                  <td>${recent[6].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[6].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[6].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
+                  <td>${recent[7].id}</td>
+                  <td>${recent[7].txDate}</td>
+                  <td>${recent[7].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[7].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[7].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
+                  <td>${recent[8].id}</td>
+                  <td>${recent[8].txDate}</td>
+                  <td>${recent[8].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[8].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[8].balance}"/></td>
                 </tr>
                 <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
+                  <td>${recent[9].id}</td>
+                  <td>${recent[9].txDate}</td>
+                  <td>${recent[9].description}</td>
+                  <td><fmt:formatNumber type="currency" value="${recent[9].amount}"/></td>
+                  <td><fmt:formatNumber type="currency" value="${recent[9].balance}"/></td>
                 </tr>
               </tbody>
             </table>
@@ -359,14 +295,14 @@ Delete Transaction By ID Number:<br>
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          labels: ["${recent[6].txDate}", "${recent[5].txDate}", "${recent[4].txDate}", "${recent[3].txDate}", "${recent[2].txDate}", "${recent[1].txDate}", "${recent[0].txDate}"],
           datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+            data: [${recent[6].amount}, ${recent[5].amount}, ${recent[4].amount}, ${recent[3].amount}, ${recent[2].amount}, ${recent[1].amount}, ${recent[0].amount}],
             lineTension: 0,
             backgroundColor: 'transparent',
-            borderColor: '#007bff',
+            borderColor: '#367EA2',
             borderWidth: 4,
-            pointBackgroundColor: '#007bff'
+            pointBackgroundColor: "#55bae7"
           }]
         },
         options: {
@@ -378,7 +314,8 @@ Delete Transaction By ID Number:<br>
             }]
           },
           legend: {
-            display: false,
+            display: false
+           
           }
         }
       });

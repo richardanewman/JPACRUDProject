@@ -1,6 +1,8 @@
 package com.skilldistillery.ledger.entities;
 
 import java.sql.Date;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -193,37 +195,17 @@ public class Ledger {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Ledger [id=");
+		NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"));
+		builder.append("ID# : ");
 		builder.append(id);
-		builder.append(", beginningBalance=");
-		builder.append(beginningBalance);
-		builder.append(", deposits=");
-		builder.append(deposits);
-		builder.append(", atmWithdrawals=");
-		builder.append(atmWithdrawals);
-		builder.append(", electronicWithdrawals=");
-		builder.append(electronicWithdrawals);
-		builder.append(", endingBalance=");
-		builder.append(endingBalance);
-		builder.append(", statementPeriod=");
-		builder.append(statementPeriod);
-		builder.append(", accountNumber=");
-		builder.append(accountNumber);
-		builder.append(", txDate=");
+		builder.append("<br>Transaction Date: ");
 		builder.append(txDate);
-		builder.append(", description=");
+		builder.append("<br>Description: ");
 		builder.append(description);
-		builder.append(", amount=");
-		builder.append(amount);
-		builder.append(", balance=");
-		builder.append(balance);
-		builder.append(", username=");
-		builder.append(username);
-		builder.append(", firstName=");
-		builder.append(firstName);
-		builder.append(", lastName=");
-		builder.append(lastName);
-		builder.append("]");
+		builder.append("<br>Amount: ");
+		builder.append(formatter.format(amount));
+		builder.append("<br>Balance: ");
+		builder.append(formatter.format(balance));
 		return builder.toString();
 	}
 

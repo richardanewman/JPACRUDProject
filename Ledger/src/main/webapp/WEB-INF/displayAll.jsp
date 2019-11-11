@@ -5,10 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="css/styles.css" rel="stylesheet"
+	type="text/css">
 <title>All Transactions</title>
 </head>
 <body>
+<div class="displayResults">
 <c:if test="${! empty displayAll}">
+<h1>Ledger Transactions:</h1>
 <c:forEach items="${displayAll}" var="ledgerTx">
 ${ledgerTx}<br><br>
 
@@ -21,5 +25,6 @@ ${ledgerTx}<br><br>
 
 </c:forEach>
 </c:if>
+</div>
 </body>
 </html>
