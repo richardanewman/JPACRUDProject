@@ -1,4 +1,4 @@
-## Spring MVC Film C.R.U.D. Project
+## Spring Boot & JPA CRUD Project
 
 ### Week 9 Homework Project for Skill Distillery
 
