@@ -1,6 +1,6 @@
 ## Spring Boot & JPA CRUD Project
 
-### Week 9 Homework Project for Skill Distillery
+### Week 10 Homework Project for Skill Distillery
 
 ### Overview
 
@@ -14,7 +14,7 @@ Java Version 1.8, SQL, MySQL, MySQL Workbench, Spring Boot, JPA, Hibernate, Grad
 
 ### Topics Applied
 
-The primary topics applied from Week 9 at Skill Distillery were on SQL, JPA, JUnit Testing, JPA Relational Mapping, String Boot & JPA project integration, and CRUD.
+The primary topics applied from Week 10 at Skill Distillery were on SQL, JPA, JUnit Testing, JPA Relational Mapping, String Boot & JPA project integration, and CRUD.
 
 ![EER Diagram](https://github.com/richardanewman/richardanewman.github.io/blob/master/images/jpa-crud-project.png)
 
