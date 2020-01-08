@@ -58,7 +58,7 @@ Below you will find a copy of the assignment's tasks. I am providing this contex
 
 ### The Following Task Overview and User Stories Were Provided by Skill Distillery
 
-###Learning Objectives
+### Learning Objectives
 
 Below are a list of objectives that we see the JPACrud application reinforcing.
 
