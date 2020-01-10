@@ -6,7 +6,7 @@
 
 This application performs simple CRUD on a single table database of my choosing.
 
-![EER Diagram](https://github.com/richardanewman/richardanewman.github.io/blob/master/images/boot-jpa.png)
+![EER Diagram](https://github.com/richardanewman/richardanewman.github.io/blob/master/images/Ledger.png)
 
 ### Technologies
 
